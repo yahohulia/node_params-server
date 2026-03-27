@@ -5,8 +5,6 @@ const http = require('http');
 
 function createServer() {
   const server = http.createServer((req, res) => {
-    let parts;
-
     res.setHeader('Content-Type', 'application/json');
 
     if (!req.url) {
@@ -15,15 +13,11 @@ function createServer() {
       return;
     }
 
-    const urlArguments = req.url.split('?');
+    const [pathname, queryString] = req.url.split('?');
 
-    if (urlArguments[0].includes('//')) {
-      parts = urlArguments[0].slice(2).split('//');
-    } else {
-      parts = urlArguments[0].slice(1).split('/');
-    }
+    const parts = pathname.split('/').filter((part) => part !== '');
 
-    const query = Object.fromEntries(new URLSearchParams(urlArguments[1]));
+    const query = Object.fromEntries(new URLSearchParams(queryString));
 
     const result = { parts: parts, query: query };
 
