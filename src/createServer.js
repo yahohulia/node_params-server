@@ -18,7 +18,7 @@ function createServer() {
     const urlArguments = req.url.split('?');
 
     if (urlArguments[0].includes('//')) {
-      parts = urlArguments[0].slice(1).split('//');
+      parts = urlArguments[0].slice(2).split('//');
     } else {
       parts = urlArguments[0].slice(1).split('/');
     }
